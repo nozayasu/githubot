@@ -60,7 +60,7 @@ class Github
           error: "Could not parse response: #{body}"
 
       if (200 <= res.statusCode < 300)
-        cb responseData
+        cb responseData, res["headers"]
       else
         @_errorHandler
           statusCode: res.statusCode

@@ -54,9 +54,10 @@ describe "github api", ->
       it "includes User-Agent header", (done) ->
         network.matchHeader('User-Agent', /GitHubot\/\d+\.\d+\.\d+/)
         gh.request "GET", "repos/foo/bar/branches", success done
-      it "returns parsed json", (done) ->
-        gh.request "GET", "repos/foo/bar/branches", (data) ->
+      it "returns parsed json and headers", (done) ->
+        gh.request "GET", "repos/foo/bar/branches", (data, headers) ->
           assert.deepEqual response, data
+          assert.deepEqual headers, { "content-type": "application/json" }
           done()
       context "custom base URL", ->
         beforeEach ->
